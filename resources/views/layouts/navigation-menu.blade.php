@@ -13,7 +13,7 @@
           <img src="{{asset('dist/img/seguridad.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">MARCO</a>
+          <a href="#" class="d-block">VIGILANCIA</a>
         </div>
       </div>
       <!-- Sidebar Menu -->

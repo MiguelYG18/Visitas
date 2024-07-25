@@ -14,15 +14,15 @@ class DasboardController extends Controller
      */
     public function index()
     {
-        $areas=Area::count();
-        $users=User::count();
-        $date=Carbon::today();
         // Obtener el mes y año actual
         $inicioMes = Carbon::now()->startOfMonth();
         $finMes = Carbon::now()->endOfMonth();
+        $date=Carbon::today();
+        $areas=Area::count();
+        $users=User::count();
         $month=User::whereBetween('created_at', [$inicioMes, $finMes])->count();
         $today=User::whereDate('created_at',$date)->count();
-        return view('dashboard',compact('areas','users','today','month'));
+        return view('dashboard',compact('users','areas','today','month'));
     }
 
     /**
