@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Area extends Model
+class Visitor extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'dni',
+        'surnames',
         'names',
+        'id_area'
     ];
-    public function visitor(){
-        return $this->hasMany(Visitor::class, 'id_area');
+    public function area(){
+        return $this->belongsTo(Area::class, 'id_area');
     }
 }

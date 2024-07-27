@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
-use App\Models\Area;
+use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Arr;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -17,8 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users=User::all();
-        $areas=Area::all();
-        return view('visitante.index',compact('users','areas'));
+        return view('admin.admin.index',compact('users'));
     }
 
     /**
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.admin.create');
     }
 
     /**
@@ -36,13 +36,18 @@ class UserController extends Controller
     {
         try {
             DB::beginTransaction();
+                //Encriptar la contraseña
+                $fieldHash=Hash::make($request->password);
+                //Modificar el valor de password en nuestro request
+                $request->merge(['password'=>$fieldHash]);
                 //Crear un usuario
                 $user=User::create($request->all());
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
+            return redirect()->route('users.index')->with('error','Usuario no Registrado');
         }
-        return redirect()->route('users.index')->with('success','Visitante Registrado');        
+        return redirect()->route('users.index')->with('success','Usuario Registrado');
     }
 
     /**
@@ -56,17 +61,31 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        return view('admin.admin.edit',compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        try {
+            DB::beginTransaction();
+                //Comprobar el password y aplicar el Hash
+                if(empty($request->password)){
+                    $request= Arr::except($request, array('password'));
+                }else{
+                    $fieldHash=Hash::make($request->password);
+                    $request->merge(['password'=>$fieldHash]);
+                }
+                $user->update($request->all());
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
+        return redirect()->route('users.index')->with('success','El usuario '.$user->names.' fue editado');      
     }
 
     /**
@@ -74,6 +93,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user=User::find($id);
+        //Eliminar al usario
+        $user->delete();
+        return redirect()->route('users.index')->with('success','El usuario '.$user->names.' fue eliminado');
     }
 }

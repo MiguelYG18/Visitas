@@ -16,20 +16,8 @@ class AreaController extends Controller
     public function index()
     {
         $areas = Area::all();
-        return view('area.index', compact('areas')); 
+        return view('admin.area.index', compact('areas')); 
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreAreaRequest $request)
     {
         try {
@@ -44,37 +32,5 @@ class AreaController extends Controller
             DB::rollBack();
         }
         return redirect()->route('areas.index')->with('success', 'Área registrada');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

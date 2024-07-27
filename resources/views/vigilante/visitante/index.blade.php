@@ -63,7 +63,7 @@
           </div>
             <div class="card">
               <div class="card-body">
-                <form action="{{route('users.store')}}" method="post">
+                <form action="{{route('visitors.store')}}" method="post">
                   @csrf @method('POST')
                   <div class="row">
                     <div class="col-md-12">
@@ -121,13 +121,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($users as $index=>$user)
+                  @foreach ($visitors as $index=>$visitor)
                     <tr>
                       <td class="text-center">{{$index + 1}}</td>
-                      <td class="text-center">{{$user->surnames}},{{$user->names}}</td>
-                      <td class="text-center">{{$user->dni}}</td>
-                      <td class="text-center">{{$user->area->names}}</td>
-                      <td class="text-center">{{date('d-m-Y', strtotime($user->created_at))}} <br> {{date('H:i:s',strtotime($user->created_at))}}</td>
+                      <td class="text-center">{{$visitor->surnames}},{{$visitor->names}}</td>
+                      <td class="text-center">{{$visitor->dni}}</td>
+                      <td class="text-center">{{$visitor->area->names}}</td>
+                      <td class="text-center">{{date('d-m-Y', strtotime($visitor->created_at))}} <br> {{date('H:i:s',strtotime($visitor->created_at))}}</td>
                     </tr>                      
                   @endforeach
                 </tbody>
@@ -178,7 +178,7 @@
                   showModal('Por favor, ingrese el DNI');
               }
               $.ajax({
-                  url: '{{ url('users/create/add-consulta') }}', // Ruta para la consulta del DNI
+                  url: '{{ url('vigilante/visitors/create/add-consulta') }}', // Ruta para la consulta del DNI
                   type: 'POST',
                   data: {
                       '_token': '{{ csrf_token() }}',

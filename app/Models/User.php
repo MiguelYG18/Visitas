@@ -18,11 +18,21 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'dni',
-        'surnames',
         'names',
-        'id_area'
+        'surnames',
+        'password',
+        'level',
+        'status'
     ];
-    public function area(){
-        return $this->belongsTo(Area::class, 'id_area');
-    }
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
 }

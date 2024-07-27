@@ -9,7 +9,7 @@ class DNIController extends Controller
     public function consultarDNI(Request $request)
     {
         // Datos
-        $token = 'apis-token-9663.Cj9q1smbmrtCveNQpEUH9K0FDqnpx1iZ';
+        $token = env('API_TOKEN');
         $dni = $request->dni;
         
         // Llamar a la API
