@@ -41,11 +41,9 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" maxlength="8" placeholder="Password" id="password" name="password">
+          <input type="password" maxlength="8" name="password" id="password" class="form-control" placeholder="Password" autocomplete="off">
           <div class="input-group-append">
-            <div class="input-group-text" style="background-color: #00476D !important;">
-              <span class="fas fa-lock text-white"></span>
-            </div>
+            <button id="show_password" class="btn btn-primary" onclick="mostrarPassword()" type="button" style="background-color: #00476D !important;"><span class="fa fa-eye-slash icon"></span></button>
           </div>
         </div>
         <div class="row">
@@ -74,5 +72,6 @@
 <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('dist/js/mostrar_ocultar.js') }}"></script>
 </body>
 </html>
