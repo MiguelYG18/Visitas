@@ -29,9 +29,8 @@
               });
           </script>                
       @endif  
-    <!-- /.content-header -->
     <div class="row mt-4">
-        <div class="col-md-6">
+        <div class="col-md-5">
           <div class="card">
             <div class="card-header" style="background-color: #00476D !important;">
               <h3 class="card-title text-white">FORMULARIO DE VISITANTE</h3>
@@ -103,7 +102,7 @@
             </div>
        
         </div>
-        <div class="col-md-6">
+        <div class="col-md-7">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">LISTA DE VISITANTES</h3>

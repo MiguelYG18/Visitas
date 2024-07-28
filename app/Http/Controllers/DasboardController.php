@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\User;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
@@ -31,7 +32,23 @@ class DasboardController extends Controller
             $visitors=Visitor::count();
             $month=Visitor::whereBetween('created_at', [$inicioMes, $finMes])->count();
             $today=Visitor::whereDate('created_at',$date)->count();
-            return view('vigilante.dashboard',compact('visitors','today','month'));
+            $areas = Area::all();
+            // Obtener las 5 áreas más visitadas del mes
+            $topAreas = Visitor::select('areas.names as area_name', DB::raw('count(visitors.id_area) as total'))
+                                ->join('areas', 'visitors.id_area', '=', 'areas.id')
+                                ->whereBetween('visitors.created_at', [$inicioMes, $finMes])
+                                ->groupBy('areas.names')
+                                ->orderBy('total', 'desc')
+                                ->take(5)
+                                ->get();
+            $topArea = Visitor::select('areas.names as area_name', DB::raw('count(visitors.id_area) as total'))
+                    ->join('areas', 'visitors.id_area', '=', 'areas.id')
+                    ->whereBetween('visitors.created_at', [$inicioMes, $finMes])
+                    ->groupBy('areas.names')
+                    ->orderBy('total', 'desc')
+                    ->take(1)
+                    ->first();                                            
+            return view('vigilante.dashboard',compact('visitors','today','month','areas','topAreas','topArea'));
         } 
     }
     public function reporte(){

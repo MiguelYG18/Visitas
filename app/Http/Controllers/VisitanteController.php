@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVisitorRequest;
 use App\Models\Area;
 use App\Models\Visitor;
+use Illuminate\Support\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,8 @@ class VisitanteController extends Controller
 {
     public function index()
     {
-        $visitors=Visitor::all();
+        $date=Carbon::today();
+        $visitors=Visitor::whereDate('created_at',$date)->get();
         $areas=Area::all();
         return view('vigilante.visitante.index',compact('visitors','areas'));
     }
@@ -21,7 +23,7 @@ class VisitanteController extends Controller
     {
         try {
             DB::beginTransaction();
-                //Crear un usuario
+                //Crear un visitante
                 $visitor=Visitor::create($request->all());
             DB::commit();
         } catch (Exception $e) {
