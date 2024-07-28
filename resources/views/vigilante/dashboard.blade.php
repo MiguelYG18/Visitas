@@ -57,8 +57,8 @@
           <div class="info-box mb-3">
             <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-university"></i></span>
             <div class="info-box-content">
-              <span class="info-box-text">Área: {{$topArea->area_name}}</span>
-              <span class="info-box-number">{{$topArea->total}}</span>
+              <span class="info-box-text">Área: {{ isset($topArea->area_name) ? $topArea->area_name : 'S/A' }}</span>
+              <span class="info-box-number">{{ isset($topArea->total) ? $topArea->total : 0 }}</span>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@
               <h3 class="card-title">5 ÁREAS CON MAYOR VISITA</h3>
             </div>
             <div class="card-body">
-              <table id="areas" class="table table-bordered table-hover table-responsive">
+              <table id="areas" class="table table-bordered table-hover table-responsive text-center">
                 <thead>
                   <tr>
                     <th class="text-center" style="width: 50px;">#</th>
@@ -216,4 +216,29 @@
   
       }); // end am5.ready()
     </script>
+    <script>
+      $('#areas').DataTable({
+          responsive: true,
+          autoWidth:false,
+          "language": {
+              "lengthMenu": "Mostrar "+
+                              `<select class="custom-select custom-select-sm w-50 form-select form-select-sm mb-2">
+                                  <option value="5">5</option>
+                                  <option value="10">10</option>
+                                  <option value="15">15</option>
+                                  <option value="20">20</option>
+                              </select>`,
+              "zeroRecords": "No se encontró nada - lo siento",
+              "info": "Mostrando la página _PAGE_ de _PAGES_ de _TOTAL_ top areas",
+              "infoEmpty": "No hay registros disponibles",
+              "infoFiltered": "(filtrado de _MAX_ registros totales)",
+              "search": "Buscar:",
+              "emptyTable": "No hay datos disponibles en la tabla",
+              "paginate":{
+                  "next":">",
+                  "previous":"<"
+              }
+          }
+      });
+    </script>    
     @endpush

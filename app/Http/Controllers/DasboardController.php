@@ -66,8 +66,10 @@ class DasboardController extends Controller
         $mpdf->SetHTMLFooter($footerHtml);      
         // Escribir el contenido HTML en el PDF
         $mpdf->WriteHTML($html);
+        //Usuario 
+        $user= Auth::user(); 
         // Nombre del archivo con fecha
-        $filename = 'reporte_visitantes_' . $date->toDateString() . '.pdf';
+        $filename = 'reporte_visitantes_' . $date->toDateString() .'_'.$user->surnames.'_'.$user->names.'.pdf';
         // Devolver el PDF como respuesta
         return response($mpdf->Output($filename, 'I')) // 'I' para Inline, 'D' para Descargar
             ->header('Content-Type', 'application/pdf')
