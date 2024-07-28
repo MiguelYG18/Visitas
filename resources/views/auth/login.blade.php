@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UGJ | LOGIN</title>
+  <title>UGV | LOGIN</title>
   <link rel="icon" href="{{asset('dist/img/ugel.png')}}">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -18,7 +18,7 @@
 <div class="login-box">
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="#" class="h1"><b>UGEL</b>JUDICIAL</a>
+      <a href="#" class="h1"><b>UGEL</b>VISITANTE</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Iniciar Sesión</p>
