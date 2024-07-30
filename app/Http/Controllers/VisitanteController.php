@@ -15,7 +15,7 @@ class VisitanteController extends Controller
     public function index()
     {
         $date=Carbon::today();
-        $visitors=Visitor::whereDate('created_at',$date)->get();
+        $visitors=Visitor::whereDate('fecha_hora',$date)->get();
         $areas=Area::all();
         return view('vigilante.visitante.index',compact('visitors','areas'));
     }

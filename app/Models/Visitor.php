@@ -12,7 +12,8 @@ class Visitor extends Model
         'dni',
         'surnames',
         'names',
-        'id_area'
+        'id_area',
+        'fecha_hora'
     ];
     public function area(){
         return $this->belongsTo(Area::class, 'id_area');

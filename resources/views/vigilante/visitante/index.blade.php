@@ -84,6 +84,15 @@
                         </div>
                     </div>
                     <div class="col-md-12">
+                      <label for="fecha_hora" class="form-label">FECHA Y HORA DE INGRESO: </label>
+                      <input readonly type="datetime-local" name="fecha_hora" id="fecha_hora" class="form-control boder-success" value="<?php echo date('Y-m-d\TH:i'); ?>">
+                      <?php
+                          use Carbon\Carbon;
+                          $fecha_hora = Carbon::now()->toDateTimeString();
+                      ?>
+                      <input type="hidden" name="fecha_hora_hidden" value="{{$fecha_hora}}">
+                    </div>
+                    <div class="col-md-12">
                       <div class="form-group">
                         <label>ÁREA</label>
                         <select class="form-control selectpicker show-tick" data-live-search="true" style="width: 100%;" id="id_area" name="id_area" title="SELECCIONE..." data-style="btn-secondary" data-size="5">
@@ -126,7 +135,7 @@
                       <td class="text-center">{{$visitor->surnames}},{{$visitor->names}}</td>
                       <td class="text-center">{{$visitor->dni}}</td>
                       <td class="text-center">{{$visitor->area->names}}</td>
-                      <td class="text-center">{{date('d-m-Y', strtotime($visitor->created_at))}} <br> {{date('H:i:s',strtotime($visitor->created_at))}}</td>
+                      <td class="text-center">{{$visitor->fecha_hora}}</td>
                     </tr>                      
                   @endforeach
                 </tbody>
@@ -224,5 +233,5 @@
     </script>
     <script>
       document.getElementById('documento').focus();
-    </script>      
+    </script>     
     @endpush

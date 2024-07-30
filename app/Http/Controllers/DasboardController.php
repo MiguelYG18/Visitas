@@ -30,20 +30,20 @@ class DasboardController extends Controller
             $finMes = Carbon::now()->endOfMonth();
             $date=Carbon::today();
             $visitors=Visitor::count();
-            $month=Visitor::whereBetween('created_at', [$inicioMes, $finMes])->count();
-            $today=Visitor::whereDate('created_at',$date)->count();
+            $month=Visitor::whereBetween('fecha_hora', [$inicioMes, $finMes])->count();
+            $today=Visitor::whereDate('fecha_hora',$date)->count();
             $areas = Area::all();
             // Obtener las 5 áreas más visitadas del mes
             $topAreas = Visitor::select('areas.names as area_name', DB::raw('count(visitors.id_area) as total'))
                                 ->join('areas', 'visitors.id_area', '=', 'areas.id')
-                                ->whereBetween('visitors.created_at', [$inicioMes, $finMes])
+                                ->whereBetween('visitors.fecha_hora', [$inicioMes, $finMes])
                                 ->groupBy('areas.names')
                                 ->orderBy('total', 'desc')
                                 ->take(5)
                                 ->get();
             $topArea = Visitor::select('areas.names as area_name', DB::raw('count(visitors.id_area) as total'))
                     ->join('areas', 'visitors.id_area', '=', 'areas.id')
-                    ->whereBetween('visitors.created_at', [$inicioMes, $finMes])
+                    ->whereBetween('visitors.fecha_hora', [$inicioMes, $finMes])
                     ->groupBy('areas.names')
                     ->orderBy('total', 'desc')
                     ->take(1)
@@ -54,7 +54,7 @@ class DasboardController extends Controller
     public function reporte(){
         // Obtener todos los visitantes
         $date=Carbon::today();
-        $visitors = Visitor::whereDate('created_at',$date)->get(); // O personaliza la consulta si es necesario
+        $visitors = Visitor::whereDate('fecha_hora',$date)->get(); // O personaliza la consulta si es necesario
         // Cargar la vista y pasar los datos de los usuarios
         $view = View::make('vigilante.report.today', ['visitors' => $visitors]);
         // Obtener el contenido HTML de la vista

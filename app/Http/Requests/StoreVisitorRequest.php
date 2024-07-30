@@ -26,6 +26,7 @@ class StoreVisitorRequest extends FormRequest
             'names'=>'required|string|regex:/^[\pL\s]+$/u',
             'surnames'=>'required|string|regex:/^[\pL\s]+$/u',
             'id_area'=>'required|exists:areas,id',
+            'fecha_hora'=>'required|date'
         ];
     }
     public function attributes(){
