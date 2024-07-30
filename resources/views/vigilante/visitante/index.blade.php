@@ -135,7 +135,13 @@
                       <td class="text-center">{{$visitor->surnames}},{{$visitor->names}}</td>
                       <td class="text-center">{{$visitor->dni}}</td>
                       <td class="text-center">{{$visitor->area->names}}</td>
-                      <td class="text-center">{{$visitor->fecha_hora}}</td>
+                      <td class="text-center">
+                        {{
+                          \Carbon\Carbon::parse($visitor->fecha_hora)->format('d-m-Y') . '
+                          ' .
+                          \Carbon\Carbon::parse($visitor->fecha_hora)->format('g:i A')
+                        }}
+                      </td>
                     </tr>                      
                   @endforeach
                 </tbody>

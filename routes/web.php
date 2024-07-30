@@ -8,7 +8,10 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VisitanteController;
 
-
+//Error 500
+Route::get('/trigger-500', function() {
+    abort(500);
+});
 //La vista de log
 Route::get('/',[AuthController::class,'login']);
 //Evitar los datos del login

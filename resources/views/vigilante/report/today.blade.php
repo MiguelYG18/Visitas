@@ -49,7 +49,13 @@
                         <td style="border: 2px solid; text-align: center; border-color: #acacb1da;">{{ $visitor->surnames }}, {{ $visitor->names }}</td>
                         <td style="border: 2px solid; text-align: center; border-color: #acacb1da;">{{ $visitor->dni }}</td>
                         <td style="border: 2px solid; text-align: center; border-color: #acacb1da;">{{ $visitor->area->names }}</td>
-                        <td style="border: 2px solid; text-align: center; border-color: #acacb1da;">{{date('d-m-Y', strtotime($visitor->created_at))}} <br> {{date('H:i:s',strtotime($visitor->created_at))}}</td>
+                        <td style="border: 2px solid; text-align: center; border-color: #acacb1da;">
+                            {{
+                                \Carbon\Carbon::parse($visitor->fecha_hora)->format('d-m-Y') . '
+                                ' .
+                                \Carbon\Carbon::parse($visitor->fecha_hora)->format('g:i A')
+                              }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
