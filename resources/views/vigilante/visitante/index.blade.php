@@ -90,9 +90,6 @@
                       ?>
                       <input type="hidden" name="fecha_hora_hidden" value="{{$fecha_hora}}">
                     </div>
-                    <div class="col-md-12 text-center">
-                      <button type="submit" class="btn text-white" style="background-color: #00476D !important;">Guardar</button>
-                    </div> 
                   </div>
                 </form>
               </div>
