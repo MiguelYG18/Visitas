@@ -82,13 +82,12 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                      <label for="fecha_hora" class="form-label">FECHA Y HORA DE INGRESO: </label>
-                      <input readonly type="datetime-local" name="fecha_hora" id="fecha_hora" class="form-control boder-success" value="<?php echo date('Y-m-d\TH:i'); ?>">
                       <?php
                           use Carbon\Carbon;
-                          $fecha_hora = Carbon::now()->toDateTimeString();
+                          $date = Carbon::now()->toDateTimeString();
                       ?>
-                      <input type="hidden" name="fecha_hora_hidden" value="{{$fecha_hora}}">
+                      <label for="fecha_hora" class="form-label">FECHA Y HORA DE INGRESO: </label>
+                      <input readonly type="datetime-local" name="fecha_hora" id="fecha_hora" class="form-control boder-success" value="{{$date}}">
                     </div>
                   </div>
                 </form>
@@ -134,96 +133,96 @@
     </div>
     @endsection
     @push('js')
-    <script>
-      $('#user').DataTable({
-          responsive: true,
-          autoWidth:false,
-          "language": {
-              "lengthMenu": "Mostrar "+
-                              `<select class="custom-select custom-select-sm w-50 form-select form-select-sm mb-2">
-                                  <option value="5">5</option>
-                                  <option value="10">10</option>
-                                  <option value="15">15</option>
-                                  <option value="20">20</option>
-                              </select>`,
-              "zeroRecords": "No se encontró nada - lo siento",
-              "info": "Mostrando la página _PAGE_ de _PAGES_ de _TOTAL_ visitantes",
-              "infoEmpty": "No hay registros disponibles",
-              "infoFiltered": "(filtrado de _MAX_ registros totales)",
-              "search": "Buscar:",
-              "emptyTable": "No hay datos disponibles en la tabla",
-              "paginate":{
-                  "next":">",
-                  "previous":"<"
-              }
-          }
-      });
-    </script>
-    <script src="{{ asset('dist/js/digitos_numericos.js') }}"></script>
-    <script>
-      // Función para realizar la búsqueda
-          function buscarDNI() {
-              var dni = $('#documento').val();
-              // Validar longitud del DNI
-              if (dni.length !== 8) {
-                  showModal('El DNI debe tener 8 dígitos');
-              }
-              if (!dni.trim()) {
-                  showModal('Por favor, ingrese el DNI');
-              }
-              $.ajax({
-                  url: '{{ url('vigilante/visitors/create/add-consulta') }}', // Ruta para la consulta del DNI
-                  type: 'POST',
-                  data: {
-                      '_token': '{{ csrf_token() }}',
-                      'dni': dni
-                  },
-                  dataType: 'json',
-                  success: function(response) {
-                      if (response.numeroDocumento == dni) {
-                          var nombreCompleto = response.apellidoPaterno + ' ' + response.apellidoMaterno;
-                          $('#surnames').val(nombreCompleto);
-                          $('#names').val(response.nombres);
-                          $('#dni').val(response.numeroDocumento);
-                          $('#documento').val('');
-                          checkFormFilled();
-                      }
-                  }
-              });
-          }
-          // Asociar evento click al botón #buscar
-          $('#buscar').click(buscarDNI);
-          // Asociar evento de teclado al campo #dni
-          $('#documento').keypress(function(event) {
-              // Verificar si la tecla presionada es Enter (código 13)
-              if (event.which == 13) {
-                  buscarDNI(); // Llamar a la función de búsqueda
-              }
-          });
-          function showModal(message,icon="error"){
-              const Toast = Swal.mixin({
-                  toast: true,
-                  position: "top-end",
-                  showConfirmButton: false,
-                  timer: 1500,
-                  timerProgressBar: true,
-                  didOpen: (toast) => {
-                      toast.onmouseenter = Swal.stopTimer;
-                      toast.onmouseleave = Swal.resumeTimer;
-                  }
-                  });
-                  Toast.fire({
-                  icon: icon,
-                  title: message
-              });                
-          }
-          function checkFormFilled() {
-              if ($('#dni').val() && $('#surnames').val() && $('#names').val()) {
-                  $('#visitorForm').submit();
-              }
-          }
-    </script>
-    <script>
-      document.getElementById('documento').focus();
-    </script>     
+      <script>
+        $('#user').DataTable({
+            responsive: true,
+            autoWidth:false,
+            "language": {
+                "lengthMenu": "Mostrar "+
+                                `<select class="custom-select custom-select-sm w-50 form-select form-select-sm mb-2">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>`,
+                "zeroRecords": "No se encontró nada - lo siento",
+                "info": "Mostrando la página _PAGE_ de _PAGES_ de _TOTAL_ visitantes",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "emptyTable": "No hay datos disponibles en la tabla",
+                "paginate":{
+                    "next":">",
+                    "previous":"<"
+                }
+            }
+        });
+      </script>
+      <script src="{{ asset('dist/js/digitos_numericos.js') }}"></script>
+      <script>
+        // Función para realizar la búsqueda
+            function buscarDNI() {
+                var dni = $('#documento').val();
+                // Validar longitud del DNI
+                if (dni.length !== 8) {
+                    showModal('El DNI debe tener 8 dígitos');
+                }
+                if (!dni.trim()) {
+                    showModal('Por favor, ingrese el DNI');
+                }
+                $.ajax({
+                    url: '{{ url('vigilante/visitors/create/add-consulta') }}', // Ruta para la consulta del DNI
+                    type: 'POST',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'dni': dni
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.numeroDocumento == dni) {
+                            var nombreCompleto = response.apellidoPaterno + ' ' + response.apellidoMaterno;
+                            $('#surnames').val(nombreCompleto);
+                            $('#names').val(response.nombres);
+                            $('#dni').val(response.numeroDocumento);
+                            $('#documento').val('');
+                            checkFormFilled();
+                        }
+                    }
+                });
+            }
+            // Asociar evento click al botón #buscar
+            $('#buscar').click(buscarDNI);
+            // Asociar evento de teclado al campo #dni
+            $('#documento').keypress(function(event) {
+                // Verificar si la tecla presionada es Enter (código 13)
+                if (event.which == 13) {
+                    buscarDNI(); // Llamar a la función de búsqueda
+                }
+            });
+            function showModal(message,icon="error"){
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                    });
+                    Toast.fire({
+                    icon: icon,
+                    title: message
+                });                
+            }
+            function checkFormFilled() {
+                if ($('#dni').val() && $('#surnames').val() && $('#names').val()) {
+                    $('#visitorForm').submit();
+                }
+            }
+      </script>
+      <script>
+        document.getElementById('documento').focus();
+      </script>          
     @endpush
