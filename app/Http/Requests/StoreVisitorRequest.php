@@ -25,13 +25,7 @@ class StoreVisitorRequest extends FormRequest
             'dni'=>'required|regex:/^[0-9]{8}$/',
             'names'=>'required|string|regex:/^[\pL\s]+$/u',
             'surnames'=>'required|string|regex:/^[\pL\s]+$/u',
-            'id_area'=>'required|exists:areas,id',
             'fecha_hora'=>'required|date'
-        ];
-    }
-    public function attributes(){
-        return[
-            'id_area'=>'área',
         ];
     }
 }

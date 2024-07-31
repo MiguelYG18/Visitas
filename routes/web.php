@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\DNIController;
@@ -21,18 +20,13 @@ Route::get('logout',[AuthController::class,'Logout']);
 
 Route::group(['middleware'=>'admin','prefix'=>'admin'],function(){
     Route::get('panel',[DasboardController::class,'dashboard']);
-    Route::resources([
-        'users'=>UserController::class,
-        'areas'=>AreaController::class
-    ]);
+    Route::resource('users',UserController::class);
     //Validación de la API
     Route::post('/users/create/add-consulta', [DNIController::class, 'consultarDNI']);
 });
 Route::group(['middleware'=>'vigilante','prefix'=>'vigilante'],function(){
     Route::get('panel',[DasboardController::class,'dashboard']);
-    Route::resources([
-        'visitors'=> VisitanteController::class
-    ]);
+    Route::resource('visitors',VisitanteController::class);
     //Validación de la API
     Route::post('/visitors/create/add-consulta', [DNIController::class, 'consultarDNI']);
     //Reportes

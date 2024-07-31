@@ -34,13 +34,6 @@
                           <p>USUARIOS</p>
                       </a>
                   </li>
-                  <li class="nav-header">GESTION DE AREAS</li>
-                  <li class="nav-item">
-                      <a href="{{ route('areas.index') }}" class="nav-link {{ request()->routeIs('areas.index') ? 'active' : '' }}">
-                          <i class="nav-icon fa fa-university"></i>
-                          <p>AREAS</p>
-                      </a>
-                  </li>
                   @break
               @case(2)
                   <li class="nav-item">

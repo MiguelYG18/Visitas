@@ -31,24 +31,8 @@ class DasboardController extends Controller
             $date=Carbon::today();
             $visitors=Visitor::count();
             $month=Visitor::whereBetween('fecha_hora', [$inicioMes, $finMes])->count();
-            $today=Visitor::whereDate('fecha_hora',$date)->count();
-            $areas = Area::all();
-            // Obtener las 5 áreas más visitadas del mes
-            $topAreas = Visitor::select('areas.names as area_name', DB::raw('count(visitors.id_area) as total'))
-                                ->join('areas', 'visitors.id_area', '=', 'areas.id')
-                                ->whereBetween('visitors.fecha_hora', [$inicioMes, $finMes])
-                                ->groupBy('areas.names')
-                                ->orderBy('total', 'desc')
-                                ->take(5)
-                                ->get();
-            $topArea = Visitor::select('areas.names as area_name', DB::raw('count(visitors.id_area) as total'))
-                    ->join('areas', 'visitors.id_area', '=', 'areas.id')
-                    ->whereBetween('visitors.fecha_hora', [$inicioMes, $finMes])
-                    ->groupBy('areas.names')
-                    ->orderBy('total', 'desc')
-                    ->take(1)
-                    ->first();                                            
-            return view('vigilante.dashboard',compact('visitors','today','month','areas','topAreas','topArea'));
+            $today=Visitor::whereDate('fecha_hora',$date)->count();                                    
+            return view('vigilante.dashboard',compact('visitors','today','month'));
         } 
     }
     public function reporte(){

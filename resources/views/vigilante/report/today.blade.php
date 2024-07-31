@@ -38,7 +38,6 @@
                     <th style="border: 2px solid; text-align: center; border-color: #acacb1da;">#</th>
                     <th style="border: 2px solid; text-align: center; border-color: #acacb1da;">VISITANTE</th>
                     <th style="border: 2px solid; text-align: center; border-color: #acacb1da;">DNI</th>
-                    <th style="border: 2px solid; text-align: center; border-color: #acacb1da;">ÁREA</th>
                     <th style="border: 2px solid; text-align: center; border-color: #acacb1da;">INGRESO</th>
                 </tr>
             </thead>
@@ -48,7 +47,6 @@
                         <td style="border: 2px solid; text-align: center; border-color: #acacb1da;">{{ $index + 1 }}</td>
                         <td style="border: 2px solid; text-align: center; border-color: #acacb1da;">{{ $visitor->surnames }}, {{ $visitor->names }}</td>
                         <td style="border: 2px solid; text-align: center; border-color: #acacb1da;">{{ $visitor->dni }}</td>
-                        <td style="border: 2px solid; text-align: center; border-color: #acacb1da;">{{ $visitor->area->names }}</td>
                         <td style="border: 2px solid; text-align: center; border-color: #acacb1da;">
                             {{
                                 \Carbon\Carbon::parse($visitor->fecha_hora)->format('d-m-Y') . '

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->char('dni',8);
             $table->string('surnames');
             $table->string('names');
-            $table->foreignId('id_area')->constrained('areas');
             $table->dateTime('fecha_hora');
             $table->timestamps();
         });

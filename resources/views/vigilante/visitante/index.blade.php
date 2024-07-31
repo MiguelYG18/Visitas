@@ -92,16 +92,6 @@
                       ?>
                       <input type="hidden" name="fecha_hora_hidden" value="{{$fecha_hora}}">
                     </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>ÁREA</label>
-                        <select class="form-control selectpicker show-tick" data-live-search="true" style="width: 100%;" id="id_area" name="id_area" title="SELECCIONE..." data-style="btn-secondary" data-size="5">
-                          @foreach ($areas as $area)
-                            <option value="{{$area->id}}"  {{ old('id_area') == $area->id ? 'selected' : '' }}>{{$area->names}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
                     <div class="col-md-12 text-center">
                       <button type="submit" class="btn text-white" style="background-color: #00476D !important;">Guardar</button>
                     </div> 
@@ -124,7 +114,6 @@
                     <th class="text-center" style="width: 50px;">#</th>
                     <th class="text-center" style="width: 300px;">Visitante</th>
                     <th class="text-center" style="width: 280px;">DNI</th>
-                    <th class="text-center" style="width: 200px;">Área</th>
                     <th class="text-center" style="width: 350px;">Ingreso</th>
                   </tr>
                 </thead>
@@ -134,7 +123,6 @@
                       <td class="text-center">{{$index + 1}}</td>
                       <td class="text-center">{{$visitor->surnames}},{{$visitor->names}}</td>
                       <td class="text-center">{{$visitor->dni}}</td>
-                      <td class="text-center">{{$visitor->area->names}}</td>
                       <td class="text-center">
                         {{
                           \Carbon\Carbon::parse($visitor->fecha_hora)->format('d-m-Y') . '
