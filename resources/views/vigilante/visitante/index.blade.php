@@ -4,9 +4,7 @@
       <!--Alertas-->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <!--CSS TABLA-->
-      <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
-      <!-- Latest compiled and minified CSS -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">    
+      <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">    
     @endpush
     @section('content')
       @if (session('success'))
@@ -62,7 +60,7 @@
           </div>
             <div class="card">
               <div class="card-body">
-                <form action="{{route('visitors.store')}}" method="post">
+                <form id="visitorForm" action="{{route('visitors.store')}}" method="post">
                   @csrf @method('POST')
                   <div class="row">
                     <div class="col-md-12">
@@ -99,12 +97,11 @@
                 </form>
               </div>
             </div>
-       
         </div>
         <div class="col-md-7">
           <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">LISTA DE VISITANTES</h3>
+            <div class="card-header" style="background-color: #00476D !important;">
+              <h3 class="card-title text-white">LISTA DE VISITANTES</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -165,8 +162,6 @@
           }
       });
     </script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
     <script src="{{ asset('dist/js/digitos_numericos.js') }}"></script>
     <script>
       // Función para realizar la búsqueda
@@ -194,6 +189,7 @@
                           $('#names').val(response.nombres);
                           $('#dni').val(response.numeroDocumento);
                           $('#documento').val('');
+                          checkFormFilled();
                       }
                   }
               });
@@ -223,6 +219,11 @@
                   icon: icon,
                   title: message
               });                
+          }
+          function checkFormFilled() {
+              if ($('#dni').val() && $('#surnames').val() && $('#names').val()) {
+                  $('#visitorForm').submit();
+              }
           }
     </script>
     <script>
