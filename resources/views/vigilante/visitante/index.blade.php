@@ -82,12 +82,12 @@
                         </div>
                     </div>
                     <div class="col-md-12">
+                      <label for="fecha_hora" class="form-label">FECHA INGRESO</label>
                       <?php
                           use Carbon\Carbon;
-                          $date = Carbon::now()->toDateTimeString();
+                          $date = Carbon::now()->toDateString(); // Solo la fecha
                       ?>
-                      <label for="fecha_hora" class="form-label">FECHA Y HORA DE INGRESO: </label>
-                      <input readonly type="datetime-local" name="fecha_hora" id="fecha_hora" class="form-control boder-success" value="{{$date}}">
+                      <input readonly type="date" name="fecha_hora" id="fecha_hora" class="form-control boder-success" value="{{$date}}">
                     </div>
                   </div>
                 </form>
